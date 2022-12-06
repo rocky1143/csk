@@ -1,0 +1,41 @@
+from collections import defaultdict
+class Graph:
+	def __init__(self):
+		self.graph = defaultdict(list)
+	def addEdge(self,u,v):
+		self.graph[u].append(v)
+	def DFSUtil(self, v, visited):
+		visited.add(v)
+		print(v, end=' ')
+		for neighbour in self.graph[v]:
+			if neighbour not in visited:
+				self.DFSUtil(neighbour, visited)
+	def DFS(self,v):
+		visited = set()
+		self.DFSUtil(v, visited)
+g = Graph()
+v=int(input('Enter no of vertices : '))
+e=int(input('Enter no of edges : '))
+print('Enter start and end of each edge : ')
+for i in range(e) :
+		x, y=[int(x) for x in input().split()]
+		g.addEdge(x, y)
+print("Following is the order of visiting nodes for DFS from (starting from vertex 2) : ")
+g.DFS(2)
+
+
+/*
+OUTPUT : 
+  
+Enter no of vertices : 4
+Enter no of edges : 6
+Enter start and end of each edge : 
+0 1
+0 2
+1 2
+2 0
+2 3
+3 3
+Following is the order of visiting nodes for DFS from (starting from vertex 2) : 
+2 0 1 3 
+*/
