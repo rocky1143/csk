@@ -14,14 +14,15 @@ def isSafe(mat, r, c):
             return False
         i = i - 1
         j = j + 1
- 
     return True
+ 
+ 
 def printSolution(mat):
-    for r in mat:a
-        for j in r:
-          print(j,end=" ")
-        print()
+    for r in mat:
+        print(str(r).replace(',', '').replace('\'', ''))
     print()
+ 
+ 
 def nQueen(mat, r):
     if r == len(mat):
         printSolution(mat)
@@ -31,6 +32,26 @@ def nQueen(mat, r):
             mat[r][i] = 'Q'
             nQueen(mat, r + 1)
             mat[r][i] = '–'
-N = 4
+print("Enter value of N : ")
+N = int(input())
 mat = [['–' for x in range(N)] for y in range(N)]
+print('Possible Solutions : ')
 nQueen(mat, 0)
+
+
+
+/*
+OUTPUT :
+
+Enter value of N : 
+4
+Possible Solutions : 
+[– Q – –]
+[– – – Q]
+[Q – – –]
+[– – Q –]
+
+[– – Q –]
+[Q – – –]
+[– – – Q]
+[– Q – –]
