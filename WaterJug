@@ -1,16 +1,14 @@
 from collections import defaultdict
-jug1=int(input("Enter capacity of j1 : "))
-jug2=int(input("Enter capcity of j2 : "))
-aim=int(input("Aim"))
-def deaf():
-	return False
-visited = defaultdict(deaf)
+jug1=int(input('Enter the max capacity for jug1 : '))
+jug2=int(input('Enter the max capacity for jug1 : '))
+aim=int(input('Enter the amount of water to be measured : '))
+visited = defaultdict(lambda: False)
 def waterJugSolver(amt1, amt2):
 	if (amt1 == aim and amt2 == 0) or (amt2 == aim and amt1 == 0):
-		print('(',amt1, amt2,')')
+		print(amt1, amt2)
 		return True
 	if visited[(amt1, amt2)] == False:
-		print('(',amt1, amt2,')',end="-->")
+		print(amt1, amt2)
 		visited[(amt1, amt2)] = True
 		return (waterJugSolver(0, amt2) or
 				waterJugSolver(amt1, 0) or
@@ -25,10 +23,21 @@ def waterJugSolver(amt1, amt2):
 print("Steps: ")
 waterJugSolver(0, 0)
 
-'''Output
-Enter capacity of j1 : 3
-Enter capcity of j2 : 4
-Aim: 2
+
+/*
+OUTPUT :
+
+Enter the max capacity for jug1 : 4
+Enter the max capacity for jug1 : 3
+Enter the amount of water to be measured : 2
 Steps: 
-( 0 0 )-->( 3 0 )-->( 3 4 )-->( 0 4 )-->( 3 1 )-->( 0 1 )-->( 1 0 )-->( 1 4 )-->( 3 2 )-->( 0 2 )
-True '''
+0 0
+4 0
+4 3
+0 3
+3 0
+3 3
+4 2
+0 2
+True
+
