@@ -42,3 +42,22 @@ while(stk[top]!=dest):
     if(stk[top]!=ele):
         sort(stk,cost,top)
 print(dest)
+
+//output :
+Enter no of vertices : 
+10
+Enter no of edgs : 
+9
+Enter edges from src to dest with cost (src,dst,cost)
+0 1 3
+0 2 2
+1 3 4
+1 4 1
+2 5 3
+2 6 1
+5 7 5
+6 8 2
+6 9 3
+Enter src and dest to search : 
+0 9
+0 2 6 8 9
