@@ -1,96 +1,47 @@
-from collections import deque
-
-class Graph:
-
-    def __init__(self, adjacency_list):
-        self.adjacency_list = adjacency_list
-
-    def get_neighbors(self, v):
-        return self.adjacency_list[v]
-
-    def h(self, n):
-        H = {
-            'A': 1,
-            'B': 1,
-            'C': 1,
-            'D': 1
-        }
-
-        return H[n]
-
-    def a_star_algorithm(self, start_node, stop_node):
-     
-        open_list = set([start_node])
-        closed_list = set([])
-        g = {}
-
-        g[start_node] = 0
-
-        
-        parents = {}
-        parents[start_node] = start_node
-
-        while len(open_list) > 0:
-            n = None
-
-           
-            for v in open_list:
-                if n == None or g[v] + self.h(v) < g[n] + self.h(n):
-                    n = v;
-
-            if n == None:
-                print('Path does not exist!')
-                return None
-
-           
-            if n == stop_node:
-                reconst_path = []
-
-                while parents[n] != n:
-                    reconst_path.append(n)
-                    n = parents[n]
-
-                reconst_path.append(start_node)
-
-                reconst_path.reverse()
-
-                print('Path found: {}'.format(reconst_path))
-                return reconst_path
-
-           
-            for (m, weight) in self.get_neighbors(n):
-                
-                if m not in open_list and m not in closed_list:
-                    open_list.add(m)
-                    parents[m] = n
-                    g[m] = g[n] + weight
-
-                
-                else:
-                    if g[m] > g[n] + weight:
-                        g[m] = g[n] + weight
-                        parents[m] = n
-
-                        if m in closed_list:
-                            closed_list.remove(m)
-                            open_list.add(m)
-
-            
-            open_list.remove(n)
-            closed_list.add(n)
-
-        print('Path does not exist!')
-        return None
-
-adjacency_list = {
-    'A': [('B', 1), ('C', 3), ('D', 7)],
-    'B': [('D', 5)],
-    'C': [('D', 12)]
-}
-graph1 = Graph(adjacency_list)
-graph1.a_star_algorithm('A', 'D')
-
-
-'''output
-  Path found: ['A', 'B', 'D']
-['A', 'B', 'D']'''
+def sort(stk,cost,top):
+    for i in range(0,top):
+        for j in range(0,top):
+            if(cost[j]<cost[j+1]):
+                temp=cost[j]
+                cost[j]=cost[j+1]
+                cost[j+1]=temp
+                temp=stk[j]
+                stk[j]=stk[j+1]
+                stk[j+1]=temp
+print("Enter no of vertices : ")
+n=int(input())
+a=[]
+par=[0]*100
+for i in range(0,n):
+    b=[0]*n
+    a.append(b)
+print("enter heuristic value fr every node(node,heuristic value)")
+h=[0]*100
+for i in range(0,n):
+    src,h1=map(int,input().split(' '))
+    h[src]=h1
+print("enter no of edges : ")
+edgs=int(input())
+print("Enter edges from src to dest with cost: ")
+for i in range(0,edgs):
+    src,dest,cost=map(int,input().split(' '))
+    a[src][dest]=cost
+top=0
+stk=[0]*n
+cost=[0]*n
+print("Enter src and dest : ")
+src,dest=map(int,input().split(' '))
+stk[top]=src
+while(stk[top]!=dest):
+    print(stk[top],end=" ")
+    ele=stk[top]
+    top-=1
+    for i in range(0,n):
+        if(a[ele][i]>0):
+            top+=1;
+            stk.insert(0,i)
+            cost.insert(0,a[ele][i]+h[i]+par[ele])
+            par[i]=par[ele]+a[ele][i]
+    if(ele!=stk[top]):
+        sort(stk,cost,top)
+print(dest)
