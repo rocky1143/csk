@@ -1,45 +1,44 @@
-from queue import PriorityQueue
-v = 14
-graph = [[] for i in range(v)]
-def best_first_search(actual_Src, target, n):
-	visited = [False] * n
-	pq = PriorityQueue()
-	pq.put((0, actual_Src))
-	visited[actual_Src] = True
-	
-	while pq.empty() == False:
-		u = pq.get()[1]
-	
-		print(u, end=" ")
-		if u == target:
-			break
-
-		for v, c in graph[u]:
-			if visited[v] == False:
-				visited[v] = True
-				pq.put((c, v))
-	print()
-def addedge(x, y, cost):
-	graph[x].append((y, cost))
-	graph[y].append((x, cost))
-addedge(0, 1, 3)
-addedge(0, 2, 6)
-addedge(0, 3, 5)
-addedge(1, 4, 9)
-addedge(1, 5, 8)
-addedge(2, 6, 12)
-addedge(2, 7, 14)
-addedge(3, 8, 7)
-addedge(8, 9, 5)
-addedge(8, 10, 6)
-addedge(9, 11, 1)
-addedge(9, 12, 10)
-addedge(9, 13, 2)
-source = 0
-target = 9
-best_first_search(source, target, v)
-
-
-
-''' output
-0 1 3 2 8 9 '''
+def sort(stk,cost,top):
+    for i in range(0,top):
+        for j in range(0,top):
+            if(cost[j]<cost[j+1]):
+                temp=cost[j]
+                cost[j]=cost[j+1]
+                cost[j+1]=temp
+                temp=stk[j]
+                stk[j]=stk[j+1]
+                stk[j+1]=temp
+print("Enter no of vertices : ")
+n=int(input())
+a=[]
+for i in range(0,n):
+    b=[0]*n
+    a.append(b)
+print("Enter no of edgs : ")
+edgs=int(input())
+print("Enter edges from src to dest with cost (src,dst,cost)")
+for i in range(0,edgs):
+    src,dest,cost=map(int,input().split(' '))
+    a[src][dest]=cost
+    a[dest][src]=cost
+print("Enter src and dest to search : ")
+src,dest=map(int,input().split(' '))
+vis=[0]*n
+stk=[0]*n
+cost=[0]*n
+top=0
+stk[top]=src
+vis[src]=1
+while(stk[top]!=dest):
+    ele=stk[top]
+    print(stk[top],end=" ")
+    top-=1
+    for i in range(0,n):
+        if(a[ele][i]>0 and vis[i]==0):
+            top+=1
+            stk[top]=i;
+            cost[top]=a[ele][i];
+            vis[i]=1
+    if(stk[top]!=ele):
+        sort(stk,cost,top)
+print(dest)
