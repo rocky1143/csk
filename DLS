@@ -26,8 +26,10 @@ print("Enter edges : ")
 for i in range(e):
     x,y = [int(x) for x in (input().split())]
     g.addEdge(x,y)
+src = int(input("Enter Source: "))
+target = int(input("Enter Target: "))
+maxDepth = int(input("Enter Depth: "))
 print("The Path is : ")
-target = 6; maxDepth = 3; src = 0
 if g.IDDFS(src, target, maxDepth) == True:
     print ("Target is reachable from source " +
         "within max depth")
@@ -52,6 +54,9 @@ Enter edges :
 1 4
 2 5
 2 6
+Enter Source: 0
+Enter Target: 6
+Enter Depth: 3
 The Path is : 
 0
 1
